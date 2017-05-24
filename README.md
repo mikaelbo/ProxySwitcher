@@ -48,3 +48,9 @@ drwxr-xr-x root/wheel        0 2017-05-23 16:35 ./usr/bin/
 If the daemon still isn't owned by root:wheel, it might be because System Integrity Protection is turned on. You can check this by running `csrutil status` in the console.
 
 When everything is set up and working properly, you can run `make package install` from the root directory to deploy to the device.
+
+## Credits
+
+* [Danny Liu](https://github.com/DYun) for his project [iOSProxyManager](https://github.com/DYun/iOSProxyManager)
+* [Uroboro](https://github.com/uroboro) for his help on the #iphonedev IRC and his [iOS Daemon example project](https://github.com/uroboro/iOS-daemon/tree/Objective-C)
+* [iOSre](http://bbs.iosre.com/)'s guide on [running a daemon as root](http://bbs.iosre.com/)
