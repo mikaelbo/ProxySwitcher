@@ -77,6 +77,15 @@ static LSStatusBarItem *statusBarItem;
     [[MBProxyProfilesDisplayer sharedDisplayer] showProxyProfiles:profiles fromFrame:self.frame selectedIndex:type];
     [MBProxyProfilesDisplayer sharedDisplayer].indexChangedCompletion = ^void(NSUInteger index) {
         type = index;
+
+        CFNumberRef aCFNumber = CFNumberCreate(kCFAllocatorDefault,
+                                kCFNumberSInt16Type,
+                                &index);
+
+        CFPreferencesSetAppValue(CFSTR("type"),
+                                aCFNumber,
+                                CFSTR("com.mikaelbo.proxyswitcher"));
+
         networkChanged();
     };
 }
