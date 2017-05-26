@@ -4,7 +4,6 @@
 #import "MBProxyProfilesDisplayer.h"
 
 static BOOL enabled = NO;
-static BOOL hasLoadedOnce = NO;
 static NSUInteger type = 0;
 static MBWiFiProxyInfo *proxyInfo;
 
@@ -18,16 +17,13 @@ static MBWiFiProxyInfo *proxyInfo;
 @end
 
 @interface UIStatusBarItem : NSObject 
-
 @property (nonatomic, readonly) NSString *indicatorName;
-
 @end
 
 @interface UIStatusBarItemView : UIView
-
 @property (nonatomic, strong, readonly) UIStatusBarItem *item;
-
 @end
+
 
 static void networkChanged() {
     if (!enabled) { return; }
@@ -38,6 +34,31 @@ static void networkChanged() {
             notify_post("com.mikaelbo.proxyswitcherd.disable");
         }
     }
+}
+
+static void loadPreferences() {
+    CFArrayRef keyList = CFPreferencesCopyKeyList(CFSTR("com.mikaelbo.proxyswitcher"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+    NSDictionary *preferences;
+    if (keyList) {
+        preferences = (__bridge NSDictionary *)CFPreferencesCopyMultiple(keyList, 
+                                                                   CFSTR("com.mikaelbo.proxyswitcher"), 
+                                                                   kCFPreferencesCurrentUser, 
+                                                                   kCFPreferencesAnyHost);
+        if (!preferences) { preferences = [NSDictionary dictionary]; }
+        CFRelease(keyList);
+        enabled = [preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : NO;
+        proxyInfo = [MBWiFiProxyInfo infoFromDictionary:preferences];
+        type = [preferences objectForKey:@"type"] ? [[preferences objectForKey:@"type"] integerValue] : 0;
+        notify_post("com.mikaelbo.proxyswitcherd.refreshPreferences");
+        networkChanged();
+    }
+}
+
+static void saveNewType() {
+    CFPreferencesSetAppValue(CFSTR("type"),
+                            CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt16Type, &type),
+                            CFSTR("com.mikaelbo.proxyswitcher"));
+    networkChanged();
 }
 
 
@@ -52,9 +73,11 @@ static LSStatusBarItem *statusBarItem;
         statusBarItem.imageName = @"ProxySwitcher";
         statusBarItem.visible = YES;
     }
+    loadPreferences();
 }
 
 %end
+
 
 %hook UIStatusBarItemView
 
@@ -77,20 +100,12 @@ static LSStatusBarItem *statusBarItem;
     [[MBProxyProfilesDisplayer sharedDisplayer] showProxyProfiles:profiles fromFrame:self.frame selectedIndex:type];
     [MBProxyProfilesDisplayer sharedDisplayer].indexChangedCompletion = ^void(NSUInteger index) {
         type = index;
-
-        CFNumberRef aCFNumber = CFNumberCreate(kCFAllocatorDefault,
-                                kCFNumberSInt16Type,
-                                &index);
-
-        CFPreferencesSetAppValue(CFSTR("type"),
-                                aCFNumber,
-                                CFSTR("com.mikaelbo.proxyswitcher"));
-
-        networkChanged();
+        saveNewType();
     };
 }
 
 %end
+
 
 %hook _UIAlertControllerView
 
@@ -100,7 +115,8 @@ static LSStatusBarItem *statusBarItem;
         UIAlertController *alertVC = (UIAlertController *)controller;
         NSString *message = alertVC.message;
         if (!proxyInfo.server.length || !proxyInfo.port || !proxyInfo.username.length || !proxyInfo.password.length) { return; }
-        if ([message rangeOfString:proxyInfo.server].location != NSNotFound && [message rangeOfString:[proxyInfo.port stringValue]].location != NSNotFound) {
+        if ([message rangeOfString:proxyInfo.server].location != NSNotFound && 
+            [message rangeOfString:[proxyInfo.port stringValue]].location != NSNotFound) {
             if (alertVC.textFields.count > 1) {
                 UITextField *usernameField = alertVC.textFields[0];
                 UITextField *passwordField = alertVC.textFields[1];
@@ -113,46 +129,9 @@ static LSStatusBarItem *statusBarItem;
 
 %end
 
-// %hook SBWiFiManager
-
-// - (void)_powerStateDidChange {
-//     %orig;
-//     if ([self wiFiEnabled] && enabled) {
-//         notify_post("com.mikaelbo.proxyswitcherd.enable"); 
-//     }
-// }
-
-// %end
-
-static void loadPreferences() {
-    CFArrayRef keyList = CFPreferencesCopyKeyList(CFSTR("com.mikaelbo.proxyswitcher"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-    NSDictionary *preferences;
-    if (keyList) {
-        preferences = (__bridge NSDictionary *)CFPreferencesCopyMultiple(keyList, 
-                                                                   CFSTR("com.mikaelbo.proxyswitcher"), 
-                                                                   kCFPreferencesCurrentUser, 
-                                                                   kCFPreferencesAnyHost);
-        if (!preferences) { preferences = [NSDictionary dictionary]; }
-        CFRelease(keyList);
-        enabled = [preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : NO;
-        proxyInfo = [MBWiFiProxyInfo infoFromDictionary:preferences];
-        type = [preferences objectForKey:@"type"] ? [[preferences objectForKey:@"type"] integerValue] : 0;
-        notify_post("com.mikaelbo.proxyswitcherd.refreshPreferences");
-        hasLoadedOnce = YES;
-        networkChanged();
-    }
-}
 
 %ctor {
-    // Making the daemon instantly change network settings will make the 
-    // WiFi icon initially disappear for some reason
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (!hasLoadedOnce) {
-            loadPreferences();
-        }    
-    });
-    
-    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),\
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
                                 NULL,
                                 (CFNotificationCallback)networkChanged,
                                 CFSTR("com.apple.system.config.network_change"),
@@ -164,5 +143,4 @@ static void loadPreferences() {
                                     CFSTR("com.mikaelbo.proxyswitcher/settingschanged"), 
                                     NULL, 
                                     CFNotificationSuspensionBehaviorCoalesce);
-
 }
