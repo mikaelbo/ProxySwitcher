@@ -18,6 +18,7 @@
 
 @interface MBProxyProfilesTableViewController ()
 
+@property (nonatomic, strong) NSBundle *bundle;
 
 @end
 
@@ -61,7 +62,7 @@
     MBProxyProfile *profile = self.profiles[indexPath.row];
     cell.textLabel.text = profile.name;
     cell.textLabel.font = [UIFont systemFontOfSize:20];
-    cell.imageView.image = [UIImage imageNamed:profile.imageName];
+    cell.imageView.image = [UIImage imageWithContentsOfFile:[self.bundle pathForResource:profile.imageName ofType:@"png"]];
     cell.backgroundColor = [UIColor clearColor];
     if (indexPath.row == self.selectedIndex) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -87,6 +88,13 @@
             weakSelf.dismissCompletion();
         }
     }];
+}
+
+- (NSBundle *)bundle {
+    if (!_bundle) {
+        _bundle = [[NSBundle alloc] initWithPath:@"/Library/Application Support/ProxySwitcher/ProxySwitcherBundle.bundle"];
+    }
+    return _bundle;
 }
 
 @end

@@ -4,6 +4,9 @@ ADDITIONAL_OBJCFLAGS = -fobjc-arc
 TWEAK_NAME = ProxySwitcher
 ProxySwitcher_FILES = $(wildcard *.m *.mm *.x *.xm)
 
+BUNDLE_NAME = ProxySwitcherBundle
+ProxySwitcherBundle_INSTALL_PATH = /Library/Application Support/ProxySwitcher
+
 include $(THEOS_MAKE_PATH)/tweak.mk
 
 after-install::
@@ -11,3 +14,4 @@ after-install::
 SUBPROJECTS += proxyswitcher
 SUBPROJECTS += proxyswitcherd
 include $(THEOS_MAKE_PATH)/aggregate.mk
+include $(THEOS)/makefiles/bundle.mk
