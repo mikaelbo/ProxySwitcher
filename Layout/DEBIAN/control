@@ -1,0 +1,9 @@
+Package: com.mikaelbo.statusbartest
+Name: StatusbarTest
+Depends: mobilesubstrate, firmware (<< 9.1) | org.thebigboss.libstatus9, firmware (>= 9.0) | libstatusbar
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: Mikaelbo
+Author: Mikaelbo
+Section: Tweaks
