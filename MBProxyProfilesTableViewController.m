@@ -47,7 +47,9 @@
     self.tableView.separatorInset = UIEdgeInsetsZero;
 //    self.tableView.separatorColor = [UIColor colorWithRed:161 / 255.0 green:209 / 255.0 blue:225 / 255.0 alpha:1];
     self.tableView.separatorColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-    self.preferredContentSize = CGSizeMake(self.view.bounds.size.width * 0.6, rowHeight * self.profiles.count);
+    CGSize size = self.view.bounds.size;
+    CGFloat width = size.width < size.height ? size.width : size.height;
+    self.preferredContentSize = CGSizeMake(width * 0.6, rowHeight * self.profiles.count);
 }
 
 #pragma mark - TableViewDataSource
