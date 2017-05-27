@@ -66,7 +66,7 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
         if ([view isKindOfClass:[UITableView class]]) {
             UITableView *tableView = (UITableView *)view;
             tableView.tableFooterView = footerView;
-            [tableView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(MB_tappedTableView)]];
+            tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
         }
     }
 }
@@ -92,12 +92,6 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
         }
     }
     return cell;
-}
-
-- (void)MB_tappedTableView {
-    for (UIView *view in self.view.subviews) {
-        [view endEditing:YES];
-    }
 }
 
 - (void)MB_authenticationSwitchChanged:(UISwitch *)theSwitch {
