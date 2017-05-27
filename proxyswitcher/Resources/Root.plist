@@ -5,12 +5,6 @@
 	<key>items</key>
 	<array>
 		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>Settings</string>
-		</dict>
-		<dict>
 			<key>PostNotification</key>
 			<string>com.mikaelbo.proxyswitcher/settingschanged</string>
 			<key>cell</key>
@@ -57,14 +51,16 @@
 			<string>Proxy</string>
 		</dict>
 		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
 			<key>keyboard</key>
 			<string>{&quot;numbers&quot;, &quot;phone&quot;}</string>
 			<key>isURL</key>
 			<true/>
 			<key>noAutoCorrect</key>
 			<true/>
-			<key>cell</key>
-			<string>PSEditTextCell</string>
+			<key>cellClass</key>
+			<string>MBTextFieldCell</string>
 			<key>defaults</key>
 			<string>com.mikaelbo.proxyswitcher</string>
 			<key>key</key>
@@ -73,14 +69,16 @@
 			<string>Server</string>
 		</dict>
 		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
 			<key>isNumeric</key>
 			<true/>
 			<key>noAutoCorrect</key>
 			<true/>
 			<key>keyboard</key>
 			<string>{&quot;numbers&quot;}</string>
-			<key>cell</key>
-			<string>PSEditTextCell</string>
+			<key>cellClass</key>
+			<string>MBTextFieldCell</string>
 			<key>defaults</key>
 			<string>com.mikaelbo.proxyswitcher</string>
 			<key>key</key>
@@ -101,6 +99,8 @@
 			<string>Authentication</string>
 		</dict>
 		<dict>
+			<key>cellClass</key>
+			<string>MBTextFieldCell</string>
 			<key>keyboard</key>
 			<string>{&quot;numbers&quot;, &quot;phone&quot;}</string>
 			<key>noAutoCorrect</key>
@@ -115,6 +115,8 @@
 			<string>Username</string>
 		</dict>
 		<dict>
+			<key>cellClass</key>
+			<string>MBPasswordTextFieldCell</string>
 			<key>keyboard</key>
 			<string>{&quot;numbers&quot;, &quot;phone&quot;}</string>
 			<key>noAutoCorrect</key>
@@ -127,6 +129,42 @@
 			<string>password</string>
 			<key>label</key>
 			<string>Password</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Support</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Contact me</string>
+			<key>action</key>
+			<string>contactMe</string>
+			<key>icon</key>
+			<string>EmailIcon.png</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Send feedback</string>
+			<key>action</key>
+			<string>sendFeedback</string>
+			<key>icon</key>
+			<string>EmailIcon.png</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>View source code</string>
+			<key>action</key>
+			<string>viewSourceCode</string>
+			<key>icon</key>
+			<string>GithubIcon.png</string>
 		</dict>
 	</array>
 	<key>title</key>
