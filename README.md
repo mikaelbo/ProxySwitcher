@@ -1,12 +1,15 @@
 # <img src="https://cloud.githubusercontent.com/assets/5389084/26520121/0385adbc-42ff-11e7-8fbf-e9a0a97f0d2f.png" width="24" height="24"/> ProxySwitcher
 ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the proxy settings are on a per-WiFi basis, ProxySwitcher listens to changes to the WiFi network, and makes sure those settings are persisted through switching of active WiFi network.
 
+<p align="center">
+	<img src="https://cloud.githubusercontent.com/assets/5389084/26522753/1dcb4c28-433a-11e7-8151-243de086313b.PNG" width="216" height="384"/>
+	<img src="https://cloud.githubusercontent.com/assets/5389084/26522752/1d98ec9c-433a-11e7-8975-365d8b1a3c47.PNG" width="216" height="384"/>
+	<img src="https://cloud.githubusercontent.com/assets/5389084/26522790/fa0535e6-433a-11e7-9045-b1567f2eecb0.PNG" width="216" height="384"/>
+</p>
+
 ## TODO:
-- [ ] Saving proxy username and password credentials to the KeyChain properly (so that it gets assosiated with configured proxy server)
-- [ ] PreferenceLoader improvements
-- [X] Dropdown toggle between Proxy and Direct
-- [X] Toggling dropdown icon on / off from Preferences
-- [ ] Dropdown compability for below iOS 10
+- Saving proxy username and password credentials to the KeyChain properly (so that it gets assosiated with configured proxy server)
+- Dropdown menu compability for below iOS 10
 
 ## Installation
 
