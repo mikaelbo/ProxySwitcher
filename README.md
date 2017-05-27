@@ -2,12 +2,13 @@
 ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the proxy settings are on a per-WiFi basis, ProxySwitcher listens to changes to the WiFi network, and makes sure those settings are persisted through switching of active WiFi network.
 
 <p align="center">
-	<img src="https://cloud.githubusercontent.com/assets/5389084/26522753/1dcb4c28-433a-11e7-8151-243de086313b.PNG" width="216" height="384"/>
-	<img src="https://cloud.githubusercontent.com/assets/5389084/26522752/1d98ec9c-433a-11e7-8975-365d8b1a3c47.PNG" width="216" height="384"/>
-	<img src="https://cloud.githubusercontent.com/assets/5389084/26522790/fa0535e6-433a-11e7-9045-b1567f2eecb0.PNG" width="216" height="384"/>
+	<img src="https://cloud.githubusercontent.com/assets/5389084/26522886/ff38f384-433c-11e7-8c76-0cb2e088f630.png" width="216" height="384"/>
+	<img src="https://cloud.githubusercontent.com/assets/5389084/26522887/ff38e88a-433c-11e7-88a4-76e2958a822d.png" width="216" height="384"/>
+	<img src="https://cloud.githubusercontent.com/assets/5389084/26522885/ff32a128-433c-11e7-9cb4-141b12fafa65.png" width="216" height="384"/>
 </p>
 
 ## TODO:
+- Handle app switcher / screen lock / app open events when showing dropdown menu
 - Saving proxy username and password credentials to the KeyChain properly (so that it gets assosiated with configured proxy server)
 - Dropdown menu compability for below iOS 10
 
