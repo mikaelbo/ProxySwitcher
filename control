@@ -3,7 +3,7 @@ Name: ProxySwitcher
 Depends: mobilesubstrate, PreferenceLoader, firmware (<< 9.1) | org.thebigboss.libstatus9, firmware (>= 9.0) | libstatusbar
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
+Description: Easily toggle using a proxy on WiFi.
 Maintainer: Mikaelbo
 Author: Mikaelbo
 Section: Tweaks
