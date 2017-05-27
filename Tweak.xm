@@ -6,6 +6,7 @@
 static BOOL enabled = NO;
 static NSUInteger type = 0;
 static MBWiFiProxyInfo *proxyInfo;
+static LSStatusBarItem *statusBarItem;
 
 @interface SBWiFiManager : NSObject
 
@@ -50,6 +51,7 @@ static void loadPreferences() {
         proxyInfo = [MBWiFiProxyInfo infoFromDictionary:preferences];
         type = [preferences objectForKey:@"type"] ? [[preferences objectForKey:@"type"] integerValue] : 0;
         notify_post("com.mikaelbo.proxyswitcherd.refreshPreferences");
+        statusBarItem.visible = enabled;
         networkChanged();
     }
 }
@@ -62,8 +64,6 @@ static void saveNewType() {
 }
 
 
-static LSStatusBarItem *statusBarItem;
-
 %hook SpringBoard
 
 - (void)applicationDidFinishLaunching:(id)arg1 {
@@ -71,7 +71,6 @@ static LSStatusBarItem *statusBarItem;
     if (UIDevice.currentDevice.systemVersion.integerValue >= 10) {
         statusBarItem = [[%c(LSStatusBarItem) alloc] initWithIdentifier:@"com.mikaelbo.proxyswitcher" alignment:StatusBarAlignmentLeft];
         statusBarItem.imageName = @"ProxySwitcher";
-        statusBarItem.visible = YES;
     }
     loadPreferences();
 }
