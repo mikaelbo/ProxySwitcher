@@ -67,9 +67,11 @@
     cell.imageView.image = [UIImage imageWithContentsOfFile:[self.bundle pathForResource:profile.imageName ofType:@"png"]];
     cell.backgroundColor = [UIColor clearColor];
     if (indexPath.row == self.selectedIndex) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        UIImage *image = [UIImage imageWithContentsOfFile:[self.bundle pathForResource:@"Checkmark" ofType:@"png"]];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        cell.accessoryView = imageView;
     } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = nil;
     }
     return cell;
 }
