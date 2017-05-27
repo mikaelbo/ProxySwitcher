@@ -88,3 +88,63 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
 }
 
 @end
+
+
+@interface MBFooterCell : PSTableCell
+
+@end
+
+@implementation MBFooterCell
+
+- (instancetype)initWithSpecifier:(PSSpecifier *)specifier {
+    if (self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FooterCell" specifier:specifier]) {
+        NSBundle *bundle = [[NSBundle alloc] initWithPath:@"/Library/PreferenceBundles/ProxySwitcher.bundle"];
+        UIImage *image = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"FooterIcon" ofType:@"png"]];
+        CGSize size = image.size;
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - size.width) / 2,
+                                                                               40,
+                                                                               size.width,
+                                                                               size.height)];
+        imageView.image = image;
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        [self.contentView addSubview:imageView];
+    
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                   imageView.frame.origin.y + imageView.frame.size.height + 4,
+                                                                   self.frame.size.width,
+                                                                   24)];
+        label.text = @"ProxySwitcher";
+
+        if ([UIFont instancesRespondToSelector:@selector(systemFontOfSize:weight:)]) {
+            label.font = [UIFont systemFontOfSize:20 weight:UIFontWeightSemibold];
+        } else {
+            label.font = [UIFont boldSystemFontOfSize:20];
+        }
+
+        label.textColor = [UIColor colorWithRed:204 / 255.0 green:204 / 255.0 blue:204 / 255.0 alpha:1];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+
+        [self.contentView addSubview:label];
+        UILabel *versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                          label.frame.origin.y + label.frame.size.height,
+                                                                          self.frame.size.width,
+                                                                          18)];
+        versionLabel.font = [UIFont systemFontOfSize:14];
+        versionLabel.textColor = [UIColor colorWithRed:204 / 255.0 green:204 / 255.0 blue:204 / 255.0 alpha:1];
+        versionLabel.text = @"Version 0.0.1";
+        versionLabel.textAlignment = NSTextAlignmentCenter;
+        versionLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self.contentView addSubview:versionLabel];
+
+    }
+    return self;
+}
+
+- (CGFloat)preferredHeightForWidth:(CGFloat)width {
+    return 144;
+}
+
+@end
+
+

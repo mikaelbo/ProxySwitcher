@@ -135,6 +135,8 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>Support</string>
+			<key>footerCellClass</key>
+			<string>MBFooterCell</string>
 		</dict>
 		<dict>
 			<key>cell</key>
