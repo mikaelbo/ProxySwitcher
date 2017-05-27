@@ -20,6 +20,10 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
     [super viewDidLoad];
     [self toggleAuthenticationCells:NO];
     [self addFooterView];
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(MB_applicationWillEnterForeground) 
+                                                 name:UIApplicationWillEnterForegroundNotification 
+                                               object:nil];
 }
 
 - (void)addFooterView {
@@ -94,6 +98,10 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
     return cell;
 }
 
+- (void)MB_applicationWillEnterForeground {
+    [self toggleAuthenticationCells:NO];
+}
+
 - (void)MB_authenticationSwitchChanged:(UISwitch *)theSwitch {
     self.authenticationEnabled = theSwitch.isOn;
     [self toggleAuthenticationCells:YES];
@@ -152,6 +160,7 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(),
                                          settingsChangedNotification,
                                          NULL,
