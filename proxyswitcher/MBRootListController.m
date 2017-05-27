@@ -174,6 +174,7 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
         if ([view isKindOfClass:[UITextField class]]) {
             UITextField *textField = (UITextField *)view;
             textField.textAlignment = NSTextAlignmentRight;
+            textField.returnKeyType = UIReturnKeyNext;
         }
     }
 }
