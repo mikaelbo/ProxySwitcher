@@ -1,4 +1,4 @@
-# ProxySwitcher
+# <img src="https://cloud.githubusercontent.com/assets/5389084/26520121/0385adbc-42ff-11e7-8fbf-e9a0a97f0d2f.png" width="24" height="24"/> ProxySwitcher
 ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the proxy settings are on a per-WiFi basis, ProxySwitcher listens to changes to the WiFi network, and makes sure those settings are persisted through switching of active WiFi network.
 
 ## TODO:
