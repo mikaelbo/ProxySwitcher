@@ -66,6 +66,7 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
         if ([view isKindOfClass:[UITableView class]]) {
             UITableView *tableView = (UITableView *)view;
             tableView.tableFooterView = footerView;
+            [tableView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(MB_tappedTableView)]];
         }
     }
 }
@@ -86,14 +87,20 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
         if ([cell respondsToSelector:@selector(control)]) {
             UISwitch *theSwitch = [cell performSelector:@selector(control)];
             if ([theSwitch isKindOfClass:[UISwitch class]]) {
-                [theSwitch addTarget:self action:@selector(authenticationSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+                [theSwitch addTarget:self action:@selector(MB_authenticationSwitchChanged:) forControlEvents:UIControlEventValueChanged];
             }
         }
     }
     return cell;
 }
 
-- (void)authenticationSwitchChanged:(UISwitch *)theSwitch {
+- (void)MB_tappedTableView {
+    for (UIView *view in self.view.subviews) {
+        [view endEditing:YES];
+    }
+}
+
+- (void)MB_authenticationSwitchChanged:(UISwitch *)theSwitch {
     self.authenticationEnabled = theSwitch.isOn;
     [self toggleAuthenticationCells:YES];
 }
