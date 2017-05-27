@@ -4,7 +4,9 @@ ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the p
 ## TODO:
 - [ ] Saving proxy username and password credentials to the KeyChain properly (so that it gets assosiated with configured proxy server)
 - [ ] PreferenceLoader improvements
-- [ ] A convenient toggle from SpringBoard (perhaps tapping the WiFi icon and getting dropdown with options)
+- [ ] Dropdown toggle between Proxy and Direct
+- [ ] Toggling dropdown icon on / off from Preferences
+- [ ] Dropdown compability for below iOS 10
 
 ## Installation
 
