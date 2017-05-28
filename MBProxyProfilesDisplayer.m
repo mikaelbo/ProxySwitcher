@@ -85,6 +85,13 @@
     return UIModalPresentationNone;
 }
 
+- (void)hideProxyProfilesIfNeeded {
+    if (self.containerWindow) {
+//        [self hideContainerWindow];
+        [self.containerWindow.rootViewController dismissViewControllerAnimated:NO completion:nil];
+    }
+}
+
 - (void)hideContainerWindow {
     [self.previousKeyWindow makeKeyAndVisible];
     for (UIView *view in self.containerWindow.subviews) {

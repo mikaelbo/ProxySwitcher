@@ -8,5 +8,6 @@
 + (instancetype)sharedDisplayer;
 
 - (void)showProxyProfiles:(NSArray<MBProxyProfile *> *)profiles fromFrame:(CGRect)frame selectedIndex:(NSUInteger)index;
+- (void)hideProxyProfilesIfNeeded;
 
 @end

@@ -63,6 +63,40 @@ static void saveNewType() {
     networkChanged();
 }
 
+static void hideProfilesOverlayIfNeeded() {
+    [[MBProxyProfilesDisplayer sharedDisplayer] hideProxyProfilesIfNeeded];
+}
+
+
+%hook SBHomeHardwareButton
+
+- (void)doubleTapUp:(id)arg1 {
+    hideProfilesOverlayIfNeeded();
+    %orig;
+}
+
+- (void)doublePressUp:(id)arg1 {
+    hideProfilesOverlayIfNeeded();
+    %orig;
+}
+
+- (void)singlePressUp:(id)arg1 {
+    hideProfilesOverlayIfNeeded();
+    %orig;
+}
+
+%end
+
+
+%hook SBBulletinRootViewController // NotificationCenter
+
+- (void)viewWillAppear:(BOOL)animated {
+    hideProfilesOverlayIfNeeded();
+    %orig;
+}
+
+%end
+
 
 %hook SpringBoard
 
@@ -73,6 +107,11 @@ static void saveNewType() {
         statusBarItem.imageName = @"ProxySwitcher";
     }
     loadPreferences();
+}
+
+- (void)frontDisplayDidChange:(id)arg1 { // App launch, screen lock, etc
+    hideProfilesOverlayIfNeeded();
+    %orig;
 }
 
 %end
@@ -131,11 +170,11 @@ static void saveNewType() {
 
 %ctor {
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
-                                NULL,
-                                (CFNotificationCallback)networkChanged,
-                                CFSTR("com.apple.system.config.network_change"),
-                                NULL,
-                                CFNotificationSuspensionBehaviorDeliverImmediately);
+                                    NULL,
+                                    (CFNotificationCallback)networkChanged,
+                                    CFSTR("com.apple.system.config.network_change"),
+                                    NULL,
+                                    CFNotificationSuspensionBehaviorDeliverImmediately);
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), 
                                     NULL, 
                                     (CFNotificationCallback)loadPreferences, 
