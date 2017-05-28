@@ -8,7 +8,6 @@ ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the p
 </p>
 
 ## TODO:
-- Handle app switcher / screen lock / app open events when showing dropdown menu
 - Saving proxy username and password credentials to the KeyChain properly (so that it gets assosiated with configured proxy server)
 - Dropdown menu compability for below iOS 10
 
