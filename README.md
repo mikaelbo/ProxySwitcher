@@ -7,9 +7,11 @@ ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the p
 	<img src="https://cloud.githubusercontent.com/assets/5389084/26522885/ff32a128-433c-11e7-9cb4-141b12fafa65.png" width="216" height="384"/>
 </p>
 
-## TODO:
-- Saving proxy username and password credentials to the KeyChain properly (so that it gets assosiated with configured proxy server)
+## Nice to have:
+- Saving proxy username and password credentials to the KeyChain (`SecKeychainAddInternetPassword`?)
 - Dropdown menu compability for below iOS 10
+- Being able to tap the StatusBar icon when an app is in the foreground
+- Making sure the icon is prioritzed to always stay on the left (and not get pushed by the network loading indicator)
 
 ## Installation
 
@@ -17,10 +19,10 @@ ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the p
 Make sure you have [Theos](https://github.com/theos/theos) installed (guide found [here](http://iphonedevwiki.net/index.php/Theos/Setup)), with the `$THEOS` and `$THEOS_DEVICE_IP` variables configured. 
 
 ### 2. Private headers
-Theos needs to point to an iOS SDK including private headers (required for using Preferences). The newer versions of the iOS SDK does not include those anymore. A few ways to solve that has been suggested in this [thread](https://github.com/theos/theos/issues/146).
+Theos needs to point to an iOS SDK including private headers (required for using Preferences). The newer versions of the iOS SDK does not include those anymore. A few ways to solve that has been suggested in this [thread](https://github.com/theos/theos/issues/146). I ended up putting a separate iOS SDK including private headers in `$THEOS/sdks`.
 
 ### 3. fauxsu
-The daemon must be owned by root:wheel, and to make sure that happens during the build, you can use a tool called [fauxsu](https://github.com/DHowett/fauxsu). A compiled version can be downloaded from [here](http://nix.howett.net/~dhowett/fauxsu.tar). 
+The daemon must be owned by root:wheel, and to make sure that happens during the build, you can use a tool called [fauxsu](https://github.com/DHowett/fauxsu). A compiled version can be downloaded from [here](http://nix.howett.net/~dhowett/fauxsu.tar).
 
 Extract `fauxsu` and `libfauxsu.dylib` to `$THEOS/bin/`. Run the following commands to make sure `fauxsu` and `libfauxsu.dylib` has the correct permissions:
 

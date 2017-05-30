@@ -144,6 +144,21 @@ static void hideProfilesOverlayIfNeeded() {
 
 %end
 
+// %hook UIStatusBarItem
+
+// - (int)leftOrder {
+//     %log;
+//     NSLog(@"%d", %orig);
+//     return [self.indicatorName isEqualToString:@"ProxySwitcher"] ? 3 : %orig;
+// }
+
+// - (int)priorty {
+//     %log;
+//     return %orig;
+// }
+
+// %end
+
 
 %hook _UIAlertControllerView
 
