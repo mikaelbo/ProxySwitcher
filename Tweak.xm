@@ -102,7 +102,7 @@ static void hideProfilesOverlayIfNeeded() {
 
 - (void)applicationDidFinishLaunching:(id)arg1 {
     %orig;
-    if (UIDevice.currentDevice.systemVersion.integerValue >= 10) {
+    if (UIDevice.currentDevice.systemVersion.integerValue >= 9) {
         statusBarItem = [[%c(LSStatusBarItem) alloc] initWithIdentifier:@"com.mikaelbo.proxyswitcher" alignment:StatusBarAlignmentLeft];
         statusBarItem.imageName = @"ProxySwitcher";
     }

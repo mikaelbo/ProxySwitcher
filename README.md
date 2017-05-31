@@ -9,9 +9,10 @@ ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the p
 
 ## Nice to have:
 - Saving proxy username and password credentials to the KeyChain (`SecKeychainAddInternetPassword`?)
-- Dropdown menu compability for below iOS 10
-- Being able to tap the StatusBar icon when an app is in the foreground
 - Making sure the icon is prioritzed to always stay on the left (and not get pushed by the network loading indicator)
+- Being able to tap the StatusBar icon when an app is in the foreground
+- Dropdown menu compability for below iOS 9
+
 
 ## Installation
 
