@@ -100,11 +100,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     _selectedIndex = indexPath.row;
     if (self.dismissCompletion) {
-        [UIView animateWithDuration:0.25 animations:^{
-            self.alpha = 0;
-        } completion:^(BOOL finished) {
-            self.dismissCompletion();
-        }];
+        self.dismissCompletion();
     }
 }
 

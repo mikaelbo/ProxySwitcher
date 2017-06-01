@@ -1,6 +1,8 @@
 #import "MBProxyProfilesDisplayer.h"
 #import "MBChooseProxyProfileView.h"
 
+#define IS_IOS8 UIDevice.currentDevice.systemVersion.integerValue < 11
+
 @interface MBPopoverPresentationViewController : UIViewController
 
 @property (nonatomic, copy) void (^dismissCompletion)();
@@ -23,7 +25,7 @@
 
 @end
 
-@interface MBProxyProfilesDisplayer () <UIPopoverPresentationControllerDelegate>
+@interface MBProxyProfilesDisplayer () <UIPopoverPresentationControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIWindow *containerWindow;
 @property (nonatomic, strong) UIWindow *previousKeyWindow;
@@ -52,7 +54,7 @@
         [self hideContainerWindow];
     };
     
-    if (UIDevice.currentDevice.systemVersion.integerValue < 11) {
+    if (IS_IOS8) {
         MBChooseProxyProfileView *view = [MBChooseProxyProfileView viewWithProfiles:profiles selectedIndex:index];
         [view addToView:rootVC.view withTargetCenter:CGPointMake(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height)];
         __weak __typeof(view) weakView = view;
@@ -60,10 +62,13 @@
             if (index != weakView.selectedIndex && self.indexChangedCompletion) {
                 self.indexChangedCompletion(weakView.selectedIndex);
             }
-            [self hideContainerWindow];
+            [self dismissiOS8Overlay];
         };
         self.containerWindow.rootViewController = rootVC;
         [self.containerWindow makeKeyAndVisible];
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOverlayBackground)];
+        tapRecognizer.delegate = self;
+        [self.containerWindow addGestureRecognizer:tapRecognizer];
         return;
     }
     
@@ -95,6 +100,31 @@
     [rootVC presentViewController:profilesVC animated:YES completion: nil];
 }
 
+#pragma mark - Tap gesture
+
+- (void)didTapOverlayBackground {
+    if (self.containerWindow) {
+        [self dismissiOS8Overlay];
+    }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (!self.containerWindow) { return NO; }
+    UIView *overlay;
+    for (UIView *view in self.containerWindow.rootViewController.view.subviews) {
+        if ([view isKindOfClass:[MBChooseProxyProfileView class]]) {
+            overlay = view;
+            break;
+        }
+    }
+    if (overlay && [touch.view isDescendantOfView:overlay]) {
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark - UIPopoverPresentationControllerDelegate
+
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection {
     return UIModalPresentationNone;
 }
@@ -103,10 +133,24 @@
     return UIModalPresentationNone;
 }
 
+#pragma mark - ContainerWindow
+
 - (void)hideProxyProfilesIfNeeded {
     if (self.containerWindow) {
-        [self.containerWindow.rootViewController dismissViewControllerAnimated:NO completion:nil];
+        if (IS_IOS8) {
+            [self dismissiOS8Overlay];
+        } else {
+            [self.containerWindow.rootViewController dismissViewControllerAnimated:NO completion:nil];
+        }
     }
+}
+
+- (void)dismissiOS8Overlay {
+    [UIView animateWithDuration:0.25 animations:^{
+        self.containerWindow.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self hideContainerWindow];
+    }];
 }
 
 - (void)hideContainerWindow {
