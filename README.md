@@ -1,6 +1,8 @@
 # <img src="https://cloud.githubusercontent.com/assets/5389084/26520121/0385adbc-42ff-11e7-8fbf-e9a0a97f0d2f.png" width="24" height="24"/> ProxySwitcher
 ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the proxy settings are on a per-WiFi basis, ProxySwitcher listens to changes to the WiFi network, and makes sure those settings are persisted through switching of active WiFi network.
 
+Available from iOS 8+
+
 <p align="center">
 	<img src="https://cloud.githubusercontent.com/assets/5389084/26522886/ff38f384-433c-11e7-8c76-0cb2e088f630.png" width="216" height="384"/>
 	<img src="https://cloud.githubusercontent.com/assets/5389084/26522887/ff38e88a-433c-11e7-88a4-76e2958a822d.png" width="216" height="384"/>
@@ -11,7 +13,6 @@ ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the p
 - Saving proxy username and password credentials to the KeyChain (`SecKeychainAddInternetPassword`?)
 - Making sure the icon is prioritzed to always stay on the left (and not get pushed by the network loading indicator)
 - Being able to tap the StatusBar icon when an app is in the foreground
-- Dropdown menu compability for below iOS 9
 
 
 ## Installation
