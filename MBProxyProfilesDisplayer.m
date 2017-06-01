@@ -1,7 +1,7 @@
 #import "MBProxyProfilesDisplayer.h"
 #import "MBChooseProxyProfileView.h"
 
-#define IS_IOS8 UIDevice.currentDevice.systemVersion.integerValue < 11
+#define IS_IOS8 UIDevice.currentDevice.systemVersion.integerValue < 9
 
 @interface MBPopoverPresentationViewController : UIViewController
 
@@ -62,7 +62,7 @@
             if (index != weakView.selectedIndex && self.indexChangedCompletion) {
                 self.indexChangedCompletion(weakView.selectedIndex);
             }
-            [self dismissiOS8Overlay];
+            [self dismissiOS8Overlay:YES];
         };
         self.containerWindow.rootViewController = rootVC;
         [self.containerWindow makeKeyAndVisible];
@@ -104,7 +104,7 @@
 
 - (void)didTapOverlayBackground {
     if (self.containerWindow) {
-        [self dismissiOS8Overlay];
+        [self dismissiOS8Overlay:YES];
     }
 }
 
@@ -138,15 +138,15 @@
 - (void)hideProxyProfilesIfNeeded {
     if (self.containerWindow) {
         if (IS_IOS8) {
-            [self dismissiOS8Overlay];
+            [self dismissiOS8Overlay:NO];
         } else {
             [self.containerWindow.rootViewController dismissViewControllerAnimated:NO completion:nil];
         }
     }
 }
 
-- (void)dismissiOS8Overlay {
-    [UIView animateWithDuration:0.25 animations:^{
+- (void)dismissiOS8Overlay:(BOOL)animated {
+    [UIView animateWithDuration:animated ? 0.25 : 0 animations:^{
         self.containerWindow.alpha = 0;
     } completion:^(BOOL finished) {
         [self hideContainerWindow];
