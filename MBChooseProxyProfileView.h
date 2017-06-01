@@ -1,13 +1,15 @@
 #import <UIKit/UIKit.h>
-#import "MBProxyProfile.h"
+#import "MBProxyProfilesTableViewController.h"
 
-@interface MBProxyProfilesTableViewController : UITableViewController
+@interface MBChooseProxyProfileView : UIView
 
 @property (nonatomic, strong, readonly) NSArray<MBProxyProfile *> *profiles;
 @property (nonatomic, readonly) NSUInteger selectedIndex;
 @property (nonatomic, copy) void (^dismissCompletion)();
 
-+ (instancetype)controllerWithProfiles:(NSArray<MBProxyProfile *> *)profiles selectedIndex:(NSUInteger)selectedIndex;
++ (instancetype)viewWithProfiles:(NSArray<MBProxyProfile *> *)profiles selectedIndex:(NSUInteger)selectedIndex;
 - (instancetype)initWithProfiles:(NSArray<MBProxyProfile *> *)profiles selectedIndex:(NSUInteger)selectedIndex;
+
+- (void)addToView:(UIView *)view withTargetCenter:(CGPoint)targetCenter;
 
 @end

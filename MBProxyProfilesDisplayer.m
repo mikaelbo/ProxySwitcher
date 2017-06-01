@@ -1,4 +1,5 @@
 #import "MBProxyProfilesDisplayer.h"
+#import "MBChooseProxyProfileView.h"
 
 @interface MBPopoverPresentationViewController : UIViewController
 
@@ -47,12 +48,29 @@
     MBPopoverPresentationViewController *rootVC = [[MBPopoverPresentationViewController alloc] init];
     rootVC.view.backgroundColor = [UIColor clearColor];
     
-    MBProxyProfilesTableViewController *profilesVC = [MBProxyProfilesTableViewController controllerWithProfiles:profiles
-                                                                                                  selectedIndex:index];
-    
     rootVC.dismissCompletion = ^void() {
         [self hideContainerWindow];
     };
+    
+    if (UIDevice.currentDevice.systemVersion.integerValue < 11) {
+        MBChooseProxyProfileView *view = [MBChooseProxyProfileView viewWithProfiles:profiles selectedIndex:index];
+        [view addToView:rootVC.view withTargetCenter:CGPointMake(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height)];
+        __weak __typeof(view) weakView = view;
+        view.dismissCompletion = ^{
+            if (index != weakView.selectedIndex && self.indexChangedCompletion) {
+                self.indexChangedCompletion(weakView.selectedIndex);
+            }
+            [self hideContainerWindow];
+        };
+        self.containerWindow.rootViewController = rootVC;
+        [self.containerWindow makeKeyAndVisible];
+        return;
+    }
+    
+    MBProxyProfilesTableViewController *profilesVC = [MBProxyProfilesTableViewController controllerWithProfiles:profiles
+                                                                                                  selectedIndex:index];
+    
+    
     
     __weak __typeof(profilesVC) weakProfilesVC = profilesVC;
     profilesVC.dismissCompletion = ^void() {
@@ -87,7 +105,6 @@
 
 - (void)hideProxyProfilesIfNeeded {
     if (self.containerWindow) {
-//        [self hideContainerWindow];
         [self.containerWindow.rootViewController dismissViewControllerAnimated:NO completion:nil];
     }
 }

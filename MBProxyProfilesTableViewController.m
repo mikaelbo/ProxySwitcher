@@ -1,21 +1,5 @@
 #import "MBProxyProfilesTableViewController.h"
 
-@implementation MBProxyProfile
-
-+ (instancetype)profileWithName:(NSString *)name imageName:(NSString *)imageName {
-    return [[self alloc] initWithName:name imageName:imageName];
-}
-
-- (instancetype)initWithName:(NSString *)name imageName:(NSString *)imageName {
-    if (self = [super init]) {
-        _name = name;
-        _imageName = imageName;
-    }
-    return self;
-}
-
-@end
-
 @interface MBProxyProfilesTableViewController ()
 
 @property (nonatomic, strong) NSBundle *bundle;
@@ -52,7 +36,7 @@
     self.preferredContentSize = CGSizeMake(width * 0.6, rowHeight * self.profiles.count);
 }
 
-#pragma mark - TableViewDataSource
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.profiles.count;
@@ -75,6 +59,8 @@
     }
     return cell;
 }
+
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
