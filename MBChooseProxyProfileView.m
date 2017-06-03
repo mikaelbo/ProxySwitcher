@@ -41,7 +41,7 @@
 - (void)configureView {
     self.backgroundView = [[UIView alloc] initWithFrame:self.bounds];
     self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.backgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.2];
+    self.backgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.85];
     UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
     UIVisualEffectView * visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     visualEffectView.frame = self.backgroundView.bounds;
