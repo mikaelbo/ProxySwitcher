@@ -102,16 +102,24 @@ static void hideProfilesOverlayIfNeeded() {
 
 - (void)applicationDidFinishLaunching:(id)arg1 {
     %orig;
-    if (UIDevice.currentDevice.systemVersion.integerValue >= 9) {
-        statusBarItem = [[%c(LSStatusBarItem) alloc] initWithIdentifier:@"com.mikaelbo.proxyswitcher" alignment:StatusBarAlignmentLeft];
-        statusBarItem.imageName = @"ProxySwitcher";
-    }
+    statusBarItem = [[%c(LSStatusBarItem) alloc] initWithIdentifier:@"com.mikaelbo.proxyswitcher" alignment:StatusBarAlignmentLeft];
+    statusBarItem.imageName = @"ProxySwitcher";
     loadPreferences();
 }
 
 - (void)frontDisplayDidChange:(id)arg1 { // App launch, screen lock, etc
     hideProfilesOverlayIfNeeded();
     %orig;
+}
+
+%end
+
+
+%hook SBTelephonyManager
+
+- (void)setIsInAirplaneMode:(BOOL)airplaneMode {
+    %orig;
+    statusBarItem.visible = !airplaneMode;
 }
 
 %end
