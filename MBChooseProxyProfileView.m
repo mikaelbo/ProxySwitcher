@@ -64,7 +64,7 @@
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.contentInset = UIEdgeInsetsMake(TOP_HEIGHT, 0, 0, 0);
     [self.contentView addSubview:self.tableView];
@@ -84,6 +84,15 @@
     cell.textLabel.font = [UIFont systemFontOfSize:20];
     cell.imageView.image = [UIImage imageWithContentsOfFile:[self.bundle pathForResource:profile.imageName ofType:@"png"]];
     cell.backgroundColor = [UIColor clearColor];
+    if (indexPath.row != self.profiles.count - 1) {
+        CGFloat height = 1 / [UIScreen mainScreen].scale;
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                         tableView.rowHeight - height,
+                                                                         tableView.bounds.size.width,
+                                                                         height)];
+        separatorView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+        [cell.contentView addSubview:separatorView];
+    }
     if (indexPath.row == self.selectedIndex) {
         UIImage *image = [UIImage imageWithContentsOfFile:[self.bundle pathForResource:@"Checkmark" ofType:@"png"]];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
