@@ -115,9 +115,9 @@ static void hideProfilesOverlayIfNeeded() {
 %end
 
 
-%hook SBTelephonyManager
+%hook RadiosPreferences
 
-- (void)setIsInAirplaneMode:(BOOL)airplaneMode {
+- (void)setAirplaneMode:(BOOL)airplaneMode {
     %orig;
     statusBarItem.visible = !airplaneMode;
 }
