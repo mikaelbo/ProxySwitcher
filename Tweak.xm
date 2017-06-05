@@ -9,12 +9,14 @@ static MBWiFiProxyInfo *proxyInfo;
 static LSStatusBarItem *statusBarItem;
 
 @interface SBWiFiManager : NSObject
-
 + (instancetype)sharedInstance;
 - (void)_powerStateDidChange;
+- (NSString *)currentNetworkName;
 - (BOOL)wiFiEnabled;
-- (id)currentNetworkName;
+@end
 
+@interface RadiosPreferences : NSObject
+@property (nonatomic) BOOL airplaneMode;
 @end
 
 @interface UIStatusBarItem : NSObject 
@@ -37,6 +39,10 @@ static void networkChanged() {
     }
 }
 
+static void setStatusBarVisible(BOOL visible) {
+    statusBarItem.visible = enabled ? visible : NO; 
+}
+
 static void loadPreferences() {
     CFArrayRef keyList = CFPreferencesCopyKeyList(CFSTR("com.mikaelbo.proxyswitcher"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
     NSDictionary *preferences;
@@ -51,7 +57,7 @@ static void loadPreferences() {
         proxyInfo = [MBWiFiProxyInfo infoFromDictionary:preferences];
         type = [preferences objectForKey:@"type"] ? [[preferences objectForKey:@"type"] integerValue] : 0;
         notify_post("com.mikaelbo.proxyswitcherd.refreshPreferences");
-        statusBarItem.visible = enabled;
+        setStatusBarVisible(![[[%c(RadiosPreferences) alloc] init] airplaneMode]);
         networkChanged();
     }
 }
@@ -119,7 +125,7 @@ static void hideProfilesOverlayIfNeeded() {
 
 - (void)setAirplaneMode:(BOOL)airplaneMode {
     %orig;
-    statusBarItem.visible = !airplaneMode;
+    setStatusBarVisible(!airplaneMode);
 }
 
 %end
