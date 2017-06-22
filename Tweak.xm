@@ -108,7 +108,7 @@ static void hideProfilesOverlayIfNeeded() {
 
 - (void)applicationDidFinishLaunching:(id)arg1 {
     %orig;
-    statusBarItem = [[%c(LSStatusBarItem) alloc] initWithIdentifier:@"com.mikaelbo.proxyswitcher" alignment:StatusBarAlignmentLeft];
+    statusBarItem = [[%c(LSStatusBarItem) alloc] initWithIdentifier:@"com.mikaelbo.proxyswitcher" alignment:StatusBarAlignmentRight];
     statusBarItem.imageName = @"ProxySwitcher";
     loadPreferences();
 }

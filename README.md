@@ -11,7 +11,6 @@ Available from iOS 8+
 
 ## Nice to have:
 - Saving proxy username and password credentials to the KeyChain (`SecKeychainAddInternetPassword`?)
-- Making sure the icon is prioritzed to always stay on the left (and not get pushed by the network loading indicator)
 - Being able to tap the StatusBar icon when an app is in the foreground
 
 
