@@ -193,8 +193,9 @@
 - (CAShapeLayer *)outlineLayer {
     if (!_outlineLayer) {
         _outlineLayer = [CAShapeLayer layer];
-        _outlineLayer.lineWidth = 1.5;
+        _outlineLayer.lineWidth = 1 / [UIScreen mainScreen].scale;
         _outlineLayer.fillColor = [UIColor clearColor].CGColor;
+        _outlineLayer.strokeColor = [[UIColor blackColor] colorWithAlphaComponent:0.3].CGColor;
         [self.layer addSublayer:_outlineLayer];
     }
     return _outlineLayer;
