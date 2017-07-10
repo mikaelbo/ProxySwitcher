@@ -39,6 +39,10 @@ static void networkChanged() {
     }
 }
 
+static void updateStatusBarImage() {
+    statusBarItem.imageName = type > 0 ? @"ProxySwitcher" : @"ProxySwitcherUnselected";
+}
+
 static void setStatusBarVisible(BOOL visible) {
     statusBarItem.visible = enabled ? visible : NO; 
 }
@@ -58,6 +62,7 @@ static void loadPreferences() {
         type = [preferences objectForKey:@"type"] ? [[preferences objectForKey:@"type"] integerValue] : 0;
         notify_post("com.mikaelbo.proxyswitcherd.refreshPreferences");
         setStatusBarVisible(![[[%c(RadiosPreferences) alloc] init] airplaneMode]);
+        updateStatusBarImage();
         networkChanged();
     }
 }
@@ -67,6 +72,7 @@ static void saveNewType() {
                             CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt16Type, &type),
                             CFSTR("com.mikaelbo.proxyswitcher"));
     networkChanged();
+    updateStatusBarImage();
 }
 
 static void hideProfilesOverlayIfNeeded() {
@@ -135,14 +141,16 @@ static void hideProfilesOverlayIfNeeded() {
 
 - (id)initWithItem:(id)arg1 data:(id)arg2 actions:(int)arg3 style:(id)arg4 {
     self = %orig;
-    if ([self.item.indicatorName isEqualToString:@"ProxySwitcher"]) {
+    if ([self.item.indicatorName isEqualToString:@"ProxySwitcher"] || [self.item.indicatorName isEqualToString:@"ProxySwitcherUnselected"]) {
         [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(MB_didTapOnView:)]];
     }
     return self;
 }
 
 - (void)setUserInteractionEnabled:(BOOL)enabled { 
-    [self.item.indicatorName isEqualToString:@"ProxySwitcher"] ? %orig(YES) : %orig;
+    NSString *indicatorName = self.item.indicatorName;
+    BOOL hasProxySwitcherItem = [indicatorName isEqualToString:@"ProxySwitcher"] || [indicatorName isEqualToString:@"ProxySwitcherUnselected"];
+    hasProxySwitcherItem ? %orig(YES) : %orig;
 }
 
 %new
