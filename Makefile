@@ -10,7 +10,8 @@ ProxySwitcherBundle_INSTALL_PATH = /Library/Application Support/ProxySwitcher
 include $(THEOS_MAKE_PATH)/tweak.mk
 
 after-install::
-	install.exec "killall -9 SpringBoard;"
+	install.exec "killall -9 SpringBoard; launchctl unload /Library/LaunchDaemons/com.mikaelbo.proxyswitcherd.plist; launchctl load /Library/LaunchDaemons/com.mikaelbo.proxyswitcherd.plist;"
+
 SUBPROJECTS += proxyswitcherprefs
 SUBPROJECTS += proxyswitcherd
 include $(THEOS_MAKE_PATH)/aggregate.mk
