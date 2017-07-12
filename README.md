@@ -9,11 +9,12 @@ Available from iOS 8+
 	<img src="https://cloud.githubusercontent.com/assets/5389084/26522885/ff32a128-433c-11e7-9cb4-141b12fafa65.png" width="216" height="384"/>
 </p>
 
-## Nice to have:
-- Saving proxy username and password credentials to the KeyChain (`SecKeychainAddInternetPassword`?)
+## TODO:
+- Fix landscape layout
 - Being able to tap the StatusBar icon when an app is in the foreground
 - Alignment priority for the StatusBar icon
-
+- Saving proxy username and password credentials to the KeyChain (`SecKeychainAddInternetPassword`?)
+- Daemon unload / load on installation / uninstallation
 
 ## Installation
 
