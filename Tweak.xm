@@ -4,6 +4,7 @@
 #import "MBProxyProfilesDisplayer.h"
 
 static BOOL enabled = NO;
+static BOOL alwaysShow = YES;
 static NSUInteger type = 0;
 static MBWiFiProxyInfo *proxyInfo;
 static LSStatusBarItem *statusBarItem;
@@ -27,16 +28,8 @@ static LSStatusBarItem *statusBarItem;
 @property (nonatomic, strong, readonly) UIStatusBarItem *item;
 @end
 
-
-static void networkChanged() {
-    if (!enabled) { return; }
-    if ([[%c(SBWiFiManager) sharedInstance] wiFiEnabled] && [[%c(SBWiFiManager) sharedInstance] currentNetworkName]) {
-        if (type == 1) {
-            notify_post("com.mikaelbo.proxyswitcherd.enable"); 
-        } else {
-            notify_post("com.mikaelbo.proxyswitcherd.disable");
-        }
-    }
+static BOOL canShowStatusBarIcon() {
+    return alwaysShow ? YES : [[%c(SBWiFiManager) sharedInstance] wiFiEnabled] && [[%c(SBWiFiManager) sharedInstance] currentNetworkName];
 }
 
 static void updateStatusBarImage() {
@@ -44,7 +37,19 @@ static void updateStatusBarImage() {
 }
 
 static void setStatusBarVisible(BOOL visible) {
-    statusBarItem.visible = enabled ? visible : NO; 
+    statusBarItem.visible = enabled && canShowStatusBarIcon() ? visible : NO; 
+}
+
+static void networkChanged() {
+    if (!enabled) { return; }
+    setStatusBarVisible(![[[%c(RadiosPreferences) alloc] init] airplaneMode]);
+    if ([[%c(SBWiFiManager) sharedInstance] wiFiEnabled] && [[%c(SBWiFiManager) sharedInstance] currentNetworkName]) {
+        if (type == 1) {
+            notify_post("com.mikaelbo.proxyswitcherd.enable"); 
+        } else {
+            notify_post("com.mikaelbo.proxyswitcherd.disable");
+        }
+    }
 }
 
 static void loadPreferences() {
@@ -58,6 +63,7 @@ static void loadPreferences() {
         if (!preferences) { preferences = [NSDictionary dictionary]; }
         CFRelease(keyList);
         enabled = [preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : NO;
+        alwaysShow = [preferences objectForKey:@"alwaysShow"] ? [[preferences objectForKey:@"alwaysShow"] boolValue] : YES;
         proxyInfo = [MBWiFiProxyInfo infoFromDictionary:preferences];
         type = [preferences objectForKey:@"type"] ? [[preferences objectForKey:@"type"] integerValue] : 0;
         notify_post("com.mikaelbo.proxyswitcherd.refreshPreferences");

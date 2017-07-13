@@ -78,8 +78,8 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
 - (NSArray *)specifiers {
     if (!_specifiers) {
         _specifiers = [self loadSpecifiersFromPlistName:@"Root" target:self];
-        self.usernameSpecifier = _specifiers[6];
-        self.passwordSpecifier = _specifiers[7];
+        self.usernameSpecifier = _specifiers[7];
+        self.passwordSpecifier = _specifiers[8];
         [self loadPreferences];
     }
     return _specifiers;
