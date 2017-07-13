@@ -86,6 +86,26 @@ static void hideProfilesOverlayIfNeeded() {
 }
 
 
+%hook SBUIController
+
+- (BOOL)handleMenuDoubleTap {
+    hideProfilesOverlayIfNeeded();
+    return %orig;
+}
+
+- (BOOL)isHandlingHomeButtonPress {
+    hideProfilesOverlayIfNeeded();
+    return %orig;
+}
+
+- (_Bool)clickedMenuButton {
+    hideProfilesOverlayIfNeeded();
+    return %orig;
+}
+
+%end
+
+
 %hook SBHomeHardwareButton
 
 - (void)doubleTapUp:(id)arg1 {
