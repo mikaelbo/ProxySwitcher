@@ -85,6 +85,11 @@ static void hideProfilesOverlayIfNeeded() {
     [[MBProxyProfilesDisplayer sharedDisplayer] hideProxyProfilesIfNeeded];
 }
 
+static void toggleProxy() {
+    type = !type ? 1 : 0;
+    saveNewType();
+}
+
 
 %hook SBUIController
 
@@ -181,13 +186,14 @@ static void hideProfilesOverlayIfNeeded() {
 
 %new
 - (void)MB_didTapOnView:(UITapGestureRecognizer *)recognizer {
-    NSArray<MBProxyProfile *> *profiles = @[[MBProxyProfile profileWithName:@"Direct" imageName:@"arrow"],
-                                            [MBProxyProfile profileWithName:@"Proxy" imageName:@"globe"]];
-    [[MBProxyProfilesDisplayer sharedDisplayer] showProxyProfiles:profiles fromFrame:self.frame selectedIndex:type];
-    [MBProxyProfilesDisplayer sharedDisplayer].indexChangedCompletion = ^void(NSUInteger index) {
-        type = index;
-        saveNewType();
-    };
+    toggleProxy();
+    // NSArray<MBProxyProfile *> *profiles = @[[MBProxyProfile profileWithName:@"Direct" imageName:@"arrow"],
+    //                                         [MBProxyProfile profileWithName:@"Proxy" imageName:@"globe"]];
+    // [[MBProxyProfilesDisplayer sharedDisplayer] showProxyProfiles:profiles fromFrame:self.frame selectedIndex:type];
+    // [MBProxyProfilesDisplayer sharedDisplayer].indexChangedCompletion = ^void(NSUInteger index) {
+    //     type = index;
+    //     saveNewType();
+    // };
 }
 
 %end
@@ -206,6 +212,10 @@ static void hideProfilesOverlayIfNeeded() {
 // }
 
 // %end
+
+static void showMenu(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
+    toggleProxy();
+}
 
 
 %hook _UIAlertControllerView
@@ -242,6 +252,12 @@ static void hideProfilesOverlayIfNeeded() {
                                     NULL, 
                                     (CFNotificationCallback)loadPreferences, 
                                     CFSTR("com.mikaelbo.proxyswitcher/settingschanged"), 
+                                    NULL, 
+                                    CFNotificationSuspensionBehaviorCoalesce);
+        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), 
+                                    NULL, 
+                                    (CFNotificationCallback)showMenu, 
+                                    CFSTR("com.mikaelbo.proxyswitcheruikit/didTapOnStatusBar"), 
                                     NULL, 
                                     CFNotificationSuspensionBehaviorCoalesce);
 }

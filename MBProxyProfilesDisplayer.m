@@ -166,7 +166,7 @@
 - (UIWindow *)containerWindow {
     if (!_containerWindow) {
         _containerWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        _containerWindow.windowLevel = MAX([UIApplication sharedApplication].keyWindow.windowLevel, UIWindowLevelStatusBar) + 1;
+        _containerWindow.windowLevel = UIWindowLevelStatusBar + 10000;
     }
     return _containerWindow;
 }

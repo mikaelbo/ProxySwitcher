@@ -14,5 +14,6 @@ after-install::
 
 SUBPROJECTS += proxyswitcherprefs
 SUBPROJECTS += proxyswitcherd
+SUBPROJECTS += proxyswitcheruikit
 include $(THEOS_MAKE_PATH)/aggregate.mk
 include $(THEOS)/makefiles/bundle.mk

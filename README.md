@@ -10,11 +10,9 @@ Available from iOS 8+
 </p>
 
 ## TODO:
-- Fix landscape layout
-- Being able to tap the StatusBar icon when an app is in the foreground
-- Alignment priority for the StatusBar icon
 - Saving proxy username and password credentials to the KeyChain (`SecKeychainAddInternetPassword`?)
 - Daemon unload / load on installation / uninstallation
+- Overlay for toggling proxy, which works on SpringBoard as well as over foreground apps
 
 ## Installation
 
