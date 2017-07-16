@@ -11,10 +11,6 @@
 	<key>RunAtLoad</key>
 	<true/>
 	<key>ProgramArguments</key>
-	<array>
-		<string>arg1</string>
-		<string>arg2</string>
-		<string>more args...</string>
-	</array>
+	<array/>
 </dict>
 </plist>

@@ -1,9 +1,10 @@
-Package: com.mikaelbo.statusbartest
-Name: StatusbarTest
-Depends: mobilesubstrate, firmware (<< 9.1) | org.thebigboss.libstatus9, firmware (>= 9.0) | libstatusbar
-Version: 0.0.1
+Package: com.mikaelbo.proxyswitcher
+Name: ProxySwitcher
+Depends: mobilesubstrate, PreferenceLoader,firmware(>= 8), firmware (<< 9.1) | org.thebigboss.libstatus9, firmware (>= 9.0) | libstatusbar
+Version: 1.0
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
+Description: Easily toggle using a proxy on WiFi.
 Maintainer: Mikaelbo
 Author: Mikaelbo
 Section: Tweaks
+Icon: file:///Library/Application Support/ProxySwitcher/ProxySwitcherBundle.bundle/icon.png

@@ -62,7 +62,7 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
                                                                       18)];
     versionLabel.font = [UIFont systemFontOfSize:14];
     versionLabel.textColor = [UIColor colorWithRed:204 / 255.0 green:204 / 255.0 blue:204 / 255.0 alpha:1];
-    versionLabel.text = @"Version 0.0.1";
+    versionLabel.text = @"Version 1.0";
     versionLabel.textAlignment = NSTextAlignmentCenter;
     versionLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [footerView addSubview:versionLabel];

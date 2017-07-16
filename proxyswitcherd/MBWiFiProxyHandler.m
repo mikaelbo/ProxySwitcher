@@ -134,12 +134,4 @@
    ![[proxyDict objectForKey:cfs2nss(kSCPropNetProxiesHTTPSPort)] isEqualToNumber:port];
 }
 
-//static BOOL dictionaryHasAuthentication(NSDictionary *)dictionary {
-//    return
-//    [dictionary[@"authentication"] isKindOfClass:[NSNumber class]] &&
-//    [dictionary[@"authentication"] boolValue] == YES &&
-//    [dictionary[@"username"] isKindOfClass:[NSString class]] &&
-//    [dictionary[@"password"] isKindOfClass:[NSString class]];
-//}
-
 @end
