@@ -1,9 +1,9 @@
 Package: com.mikaelbo.proxyswitcherd
 Name: ProxySwitcherd
 Depends: 
-Version: 0.0.1
+Version: 1.0
 Architecture: iphoneos-arm
-Description: An awesome tool of some sort!!
+Description: The daemon for ProxySwitcher
 Maintainer: Mikaelbo
 Author: Mikaelbo
 Section: System

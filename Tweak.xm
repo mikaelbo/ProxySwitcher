@@ -1,7 +1,6 @@
 #include <notify.h>
-#import "MBWiFiProxyInfo.h"
 #import "LSStatusBarItem.h"
-#import "MBProxyProfilesDisplayer.h"
+#import "MBWiFiProxyInfo.h"
 
 static BOOL enabled = NO;
 static BOOL alwaysShow = YES;
@@ -18,14 +17,6 @@ static LSStatusBarItem *statusBarItem;
 
 @interface RadiosPreferences : NSObject
 @property (nonatomic) BOOL airplaneMode;
-@end
-
-@interface UIStatusBarItem : NSObject 
-@property (nonatomic, readonly) NSString *indicatorName;
-@end
-
-@interface UIStatusBarItemView : UIView
-@property (nonatomic, strong, readonly) UIStatusBarItem *item;
 @end
 
 static BOOL canShowStatusBarIcon() {
@@ -81,64 +72,10 @@ static void saveNewType() {
     updateStatusBarImage();
 }
 
-static void hideProfilesOverlayIfNeeded() {
-    [[MBProxyProfilesDisplayer sharedDisplayer] hideProxyProfilesIfNeeded];
-}
-
 static void toggleProxy() {
     type = !type ? 1 : 0;
     saveNewType();
 }
-
-
-%hook SBUIController
-
-- (BOOL)handleMenuDoubleTap {
-    hideProfilesOverlayIfNeeded();
-    return %orig;
-}
-
-- (BOOL)isHandlingHomeButtonPress {
-    hideProfilesOverlayIfNeeded();
-    return %orig;
-}
-
-- (_Bool)clickedMenuButton {
-    hideProfilesOverlayIfNeeded();
-    return %orig;
-}
-
-%end
-
-
-%hook SBHomeHardwareButton
-
-- (void)doubleTapUp:(id)arg1 {
-    hideProfilesOverlayIfNeeded();
-    %orig;
-}
-
-- (void)doublePressUp:(id)arg1 {
-    hideProfilesOverlayIfNeeded();
-    %orig;
-}
-
-- (void)singlePressUp:(id)arg1 {
-    hideProfilesOverlayIfNeeded();
-    %orig;
-}
-
-%end
-
-
-%hook SBBulletinRootViewController // NotificationCenter
-
-- (void)viewWillAppear:(BOOL)animated {
-    hideProfilesOverlayIfNeeded();
-    %orig;
-}
-
-%end
 
 
 %hook SpringBoard
@@ -148,11 +85,6 @@ static void toggleProxy() {
     statusBarItem = [[%c(LSStatusBarItem) alloc] initWithIdentifier:@"com.mikaelbo.proxyswitcher" alignment:StatusBarAlignmentRight];
     statusBarItem.imageName = @"ProxySwitcher";
     loadPreferences();
-}
-
-- (void)frontDisplayDidChange:(id)arg1 { // App launch, screen lock, etc
-    hideProfilesOverlayIfNeeded();
-    %orig;
 }
 
 %end
@@ -166,56 +98,6 @@ static void toggleProxy() {
 }
 
 %end
-
-
-%hook UIStatusBarItemView
-
-- (id)initWithItem:(id)arg1 data:(id)arg2 actions:(int)arg3 style:(id)arg4 {
-    self = %orig;
-    if ([self.item.indicatorName isEqualToString:@"ProxySwitcher"] || [self.item.indicatorName isEqualToString:@"ProxySwitcherUnselected"]) {
-        [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(MB_didTapOnView:)]];
-    }
-    return self;
-}
-
-- (void)setUserInteractionEnabled:(BOOL)enabled { 
-    NSString *indicatorName = self.item.indicatorName;
-    BOOL hasProxySwitcherItem = [indicatorName isEqualToString:@"ProxySwitcher"] || [indicatorName isEqualToString:@"ProxySwitcherUnselected"];
-    hasProxySwitcherItem ? %orig(YES) : %orig;
-}
-
-%new
-- (void)MB_didTapOnView:(UITapGestureRecognizer *)recognizer {
-    toggleProxy();
-    // NSArray<MBProxyProfile *> *profiles = @[[MBProxyProfile profileWithName:@"Direct" imageName:@"arrow"],
-    //                                         [MBProxyProfile profileWithName:@"Proxy" imageName:@"globe"]];
-    // [[MBProxyProfilesDisplayer sharedDisplayer] showProxyProfiles:profiles fromFrame:self.frame selectedIndex:type];
-    // [MBProxyProfilesDisplayer sharedDisplayer].indexChangedCompletion = ^void(NSUInteger index) {
-    //     type = index;
-    //     saveNewType();
-    // };
-}
-
-%end
-
-// %hook UIStatusBarItem
-
-// - (int)leftOrder {
-//     %log;
-//     NSLog(@"%d", %orig);
-//     return [self.indicatorName isEqualToString:@"ProxySwitcher"] ? 3 : %orig;
-// }
-
-// - (int)priorty {
-//     %log;
-//     return %orig;
-// }
-
-// %end
-
-static void showMenu(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
-    toggleProxy();
-}
 
 
 %hook _UIAlertControllerView
@@ -256,7 +138,7 @@ static void showMenu(CFNotificationCenterRef center, void *observer, CFStringRef
                                     CFNotificationSuspensionBehaviorCoalesce);
         CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), 
                                     NULL, 
-                                    (CFNotificationCallback)showMenu, 
+                                    (CFNotificationCallback)toggleProxy, 
                                     CFSTR("com.mikaelbo.proxyswitcheruikit/didTapOnStatusBar"), 
                                     NULL, 
                                     CFNotificationSuspensionBehaviorCoalesce);

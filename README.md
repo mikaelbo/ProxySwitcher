@@ -1,18 +1,24 @@
 # <img src="https://cloud.githubusercontent.com/assets/5389084/26520121/0385adbc-42ff-11e7-8fbf-e9a0a97f0d2f.png" width="24" height="24"/> ProxySwitcher
-ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the proxy settings are on a per-WiFi basis, ProxySwitcher listens to changes to the WiFi network, and makes sure those settings are persisted through switching of active WiFi network.
+ProxySwitcher is meant to give an easy way to toggle proxy on / off. Since the proxy settings are on a per-WiFi basis, ProxySwitcher listens to changes to the WiFi network, and makes sure those settings are persisted through switching of active WiFi network. 
+
+Easily toggle between using proxy and non-proxy by tapping the added icon on the right side of the StatusBar. The icon is gray when it's set to not use proxy, and black/white  when proxy is active. 
+
+The icon can be toggled to only show when WiFi is active (default), or to always be shown.
 
 Available from iOS 8+
 
 <p align="center">
-	<img src="https://cloud.githubusercontent.com/assets/5389084/26522886/ff38f384-433c-11e7-8c76-0cb2e088f630.png" width="216" height="384"/>
-	<img src="https://cloud.githubusercontent.com/assets/5389084/26522887/ff38e88a-433c-11e7-88a4-76e2958a822d.png" width="216" height="384"/>
-	<img src="https://cloud.githubusercontent.com/assets/5389084/26522885/ff32a128-433c-11e7-9cb4-141b12fafa65.png" width="216" height="384"/>
+	<img src="https://user-images.githubusercontent.com/5389084/28245623-b426cbdc-6a3d-11e7-9340-7bbfac0fbb30.png" width="216" height="384"/>
+	<img src="https://user-images.githubusercontent.com/5389084/28245621-b3b29d7a-6a3d-11e7-8acf-ca205f7c97c3.png" width="216" height="384"/>
+	<img src="https://user-images.githubusercontent.com/5389084/28245622-b3eff418-6a3d-11e7-98cf-ded2eb1f421e.png" width="216" height="384"/>
 </p>
 
-## TODO:
+## Nice to have:
 - Saving proxy username and password credentials to the KeyChain (`SecKeychainAddInternetPassword`?)
-- Daemon unload / load on installation / uninstallation
-- Overlay for toggling proxy, which works on SpringBoard as well as over foreground apps
+- Multiple proxy configurations
+- Overlay for toggling proxy. Something like this:
+
+	<img src="https://cloud.githubusercontent.com/assets/5389084/26522886/ff38f384-433c-11e7-8c76-0cb2e088f630.png" width="216" height="384"/>
 
 ## Installation
 
