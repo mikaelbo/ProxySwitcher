@@ -1,0 +1,4 @@
+#!/bin/sh
+echo "Post install: Loading daemon..."
+launchctl load /Library/LaunchDaemons/com.mikaelbo.proxyswitcherd.plist
+exit 0
