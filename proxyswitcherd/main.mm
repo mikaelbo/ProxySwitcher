@@ -32,19 +32,19 @@ int main(int argc, char **argv, char **envp) {
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
                                     NULL,
                                     enable,
-                                    CFSTR("com.mikaelbo.proxyswitcherd.enable"),
+                                    CFSTR("com.mbo42.proxyswitcherd.enable"),
                                     NULL,
                                     CFNotificationSuspensionBehaviorCoalesce);
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
                                     NULL,
                                     disable,
-                                    CFSTR("com.mikaelbo.proxyswitcherd.disable"),
+                                    CFSTR("com.mbo42.proxyswitcherd.disable"),
                                     NULL,
                                     CFNotificationSuspensionBehaviorCoalesce);
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
                                     NULL,
                                     refreshPreferences,
-                                    CFSTR("com.mikaelbo.proxyswitcherd.refreshPreferences"),
+                                    CFSTR("com.mbo42.proxyswitcherd.refreshPreferences"),
                                     NULL,
                                     CFNotificationSuspensionBehaviorCoalesce);
     CFRunLoopRun();

@@ -45,14 +45,14 @@ sudo chown root:wheel $THEOS/bin/libfauxsu.dylib
 Check ownership by running:
 
 ```
-dpkg-deb -c ./packages/com.mikaelbo.proxyswitcher_X+debug_iphoneos-arm.deb
+dpkg-deb -c ./packages/com.mbo42.proxyswitcher_X+debug_iphoneos-arm.deb
 ```
 ```
 drwxr-xr-x root/wheel        0 2017-05-23 16:35 ./
 drwxr-xr-x root/wheel        0 2017-05-22 17:20 ./Library/
 drwxr-xr-x root/wheel        0 2017-05-22 21:08 ./Library/LaunchDaemons/
 -rw-r--r-- root/wheel      504 2017-05-22 21:08 ./Library/LaunchDaemons/
-com.mikaelbo.proxyswitcherd.plist
+com.mbo42.proxyswitcherd.plist
 drwxr-xr-x root/wheel        0 2017-05-23 16:35 ./usr/
 drwxr-xr-x root/wheel        0 2017-05-23 16:35 ./usr/bin/
 -rwxr-xr-x root/wheel   139680 2017-05-23 16:35 ./usr/bin/ProxySwitcherd

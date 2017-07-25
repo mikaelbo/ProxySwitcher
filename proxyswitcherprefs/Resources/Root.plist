@@ -6,13 +6,13 @@
 	<array>
 		<dict>
 			<key>PostNotification</key>
-			<string>com.mikaelbo.proxyswitcher/settingschanged</string>
+			<string>com.mbo42.proxyswitcher/settingschanged</string>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<true/>
 			<key>defaults</key>
-			<string>com.mikaelbo.proxyswitcher</string>
+			<string>com.mbo42.proxyswitcher</string>
 			<key>key</key>
 			<string>enabled</string>
 			<key>label</key>
@@ -20,13 +20,13 @@
 		</dict>
 		<dict>
 			<key>PostNotification</key>
-			<string>com.mikaelbo.proxyswitcher/settingschanged</string>
+			<string>com.mbo42.proxyswitcher/settingschanged</string>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>com.mikaelbo.proxyswitcher</string>
+			<string>com.mbo42.proxyswitcher</string>
 			<key>key</key>
 			<string>alwaysShow</string>
 			<key>label</key>
@@ -34,13 +34,13 @@
 		</dict>
 		<dict>
 			<key>PostNotification</key>
-			<string>com.mikaelbo.proxyswitcher/settingschanged</string>
+			<string>com.mbo42.proxyswitcher/settingschanged</string>
 			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
 			<key>defaults</key>
-			<string>com.mikaelbo.proxyswitcher</string>
+			<string>com.mbo42.proxyswitcher</string>
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>key</key>
@@ -76,7 +76,7 @@
 			<key>cellClass</key>
 			<string>MBTextFieldCell</string>
 			<key>defaults</key>
-			<string>com.mikaelbo.proxyswitcher</string>
+			<string>com.mbo42.proxyswitcher</string>
 			<key>key</key>
 			<string>server</string>
 			<key>label</key>
@@ -94,7 +94,7 @@
 			<key>cellClass</key>
 			<string>MBTextFieldCell</string>
 			<key>defaults</key>
-			<string>com.mikaelbo.proxyswitcher</string>
+			<string>com.mbo42.proxyswitcher</string>
 			<key>key</key>
 			<string>port</string>
 			<key>label</key>
@@ -106,7 +106,7 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>com.mikaelbo.proxyswitcher</string>
+			<string>com.mbo42.proxyswitcher</string>
 			<key>key</key>
 			<string>authentication</string>
 			<key>label</key>
@@ -122,7 +122,7 @@
 			<key>cell</key>
 			<string>PSEditTextCell</string>
 			<key>defaults</key>
-			<string>com.mikaelbo.proxyswitcher</string>
+			<string>com.mbo42.proxyswitcher</string>
 			<key>key</key>
 			<string>username</string>
 			<key>label</key>
@@ -138,7 +138,7 @@
 			<key>cell</key>
 			<string>PSSecureEditTextCell</string>
 			<key>defaults</key>
-			<string>com.mikaelbo.proxyswitcher</string>
+			<string>com.mbo42.proxyswitcher</string>
 			<key>key</key>
 			<string>password</string>
 			<key>label</key>

@@ -36,19 +36,19 @@ static void networkChanged() {
     setStatusBarVisible(![[[%c(RadiosPreferences) alloc] init] airplaneMode]);
     if ([[%c(SBWiFiManager) sharedInstance] wiFiEnabled] && [[%c(SBWiFiManager) sharedInstance] currentNetworkName]) {
         if (type == 1) {
-            notify_post("com.mikaelbo.proxyswitcherd.enable"); 
+            notify_post("com.mbo42.proxyswitcherd.enable"); 
         } else {
-            notify_post("com.mikaelbo.proxyswitcherd.disable");
+            notify_post("com.mbo42.proxyswitcherd.disable");
         }
     }
 }
 
 static void loadPreferences() {
-    CFArrayRef keyList = CFPreferencesCopyKeyList(CFSTR("com.mikaelbo.proxyswitcher"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+    CFArrayRef keyList = CFPreferencesCopyKeyList(CFSTR("com.mbo42.proxyswitcher"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
     NSDictionary *preferences;
     if (keyList) {
         preferences = (__bridge NSDictionary *)CFPreferencesCopyMultiple(keyList, 
-                                                                   CFSTR("com.mikaelbo.proxyswitcher"), 
+                                                                   CFSTR("com.mbo42.proxyswitcher"), 
                                                                    kCFPreferencesCurrentUser, 
                                                                    kCFPreferencesAnyHost);
         if (!preferences) { preferences = [NSDictionary dictionary]; }
@@ -57,7 +57,7 @@ static void loadPreferences() {
         alwaysShow = [preferences objectForKey:@"alwaysShow"] ? [[preferences objectForKey:@"alwaysShow"] boolValue] : YES;
         proxyInfo = [MBWiFiProxyInfo infoFromDictionary:preferences];
         type = [preferences objectForKey:@"type"] ? [[preferences objectForKey:@"type"] integerValue] : 0;
-        notify_post("com.mikaelbo.proxyswitcherd.refreshPreferences");
+        notify_post("com.mbo42.proxyswitcherd.refreshPreferences");
         setStatusBarVisible(![[[%c(RadiosPreferences) alloc] init] airplaneMode]);
         updateStatusBarImage();
         networkChanged();
@@ -67,7 +67,7 @@ static void loadPreferences() {
 static void saveNewType() {
     CFPreferencesSetAppValue(CFSTR("type"),
                             CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt16Type, &type),
-                            CFSTR("com.mikaelbo.proxyswitcher"));
+                            CFSTR("com.mbo42.proxyswitcher"));
     networkChanged();
     updateStatusBarImage();
 }
@@ -82,7 +82,7 @@ static void toggleProxy() {
 
 - (void)applicationDidFinishLaunching:(id)arg1 {
     %orig;
-    statusBarItem = [[%c(LSStatusBarItem) alloc] initWithIdentifier:@"com.mikaelbo.proxyswitcher" alignment:StatusBarAlignmentRight];
+    statusBarItem = [[%c(LSStatusBarItem) alloc] initWithIdentifier:@"com.mbo42.proxyswitcher" alignment:StatusBarAlignmentRight];
     statusBarItem.imageName = @"ProxySwitcher";
     loadPreferences();
 }
@@ -133,13 +133,13 @@ static void toggleProxy() {
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), 
                                     NULL, 
                                     (CFNotificationCallback)loadPreferences, 
-                                    CFSTR("com.mikaelbo.proxyswitcher/settingschanged"), 
+                                    CFSTR("com.mbo42.proxyswitcher/settingschanged"), 
                                     NULL, 
                                     CFNotificationSuspensionBehaviorCoalesce);
         CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), 
                                     NULL, 
                                     (CFNotificationCallback)toggleProxy, 
-                                    CFSTR("com.mikaelbo.proxyswitcheruikit/didTapOnStatusBar"), 
+                                    CFSTR("com.mbo42.proxyswitcheruikit/didTapOnStatusBar"), 
                                     NULL, 
                                     CFNotificationSuspensionBehaviorCoalesce);
 }

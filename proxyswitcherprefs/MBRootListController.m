@@ -3,7 +3,7 @@
 #import <Preferences/PSEditableTableCell.h>
 #import <Preferences/PSControlTableCell.h>
 
-static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitcher/settingschanged");
+static CFStringRef settingsChangedNotification = CFSTR("com.mbo42.proxyswitcher/settingschanged");
 
 @interface MBRootListController()
 
@@ -108,11 +108,11 @@ static CFStringRef settingsChangedNotification = CFSTR("com.mikaelbo.proxyswitch
 }
 
 - (void)loadPreferences {
-    CFArrayRef keyList = CFPreferencesCopyKeyList(CFSTR("com.mikaelbo.proxyswitcher"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+    CFArrayRef keyList = CFPreferencesCopyKeyList(CFSTR("com.mbo42.proxyswitcher"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
     NSDictionary *preferences;
     if (keyList) {
         preferences = (__bridge NSDictionary *)CFPreferencesCopyMultiple(keyList,
-                                                                         CFSTR("com.mikaelbo.proxyswitcher"),
+                                                                         CFSTR("com.mbo42.proxyswitcher"),
                                                                          kCFPreferencesCurrentUser,
                                                                          kCFPreferencesAnyHost);
         if (!preferences) { preferences = [NSDictionary dictionary]; }

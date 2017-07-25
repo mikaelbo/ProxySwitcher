@@ -1,10 +1,10 @@
-Package: com.mikaelbo.proxyswitcherd
+Package: com.mbo42.proxyswitcherd
 Name: ProxySwitcherd
 Depends: 
 Version: 1.0
 Architecture: iphoneos-arm
 Description: The daemon for ProxySwitcher
-Maintainer: Mikaelbo
-Author: Mikaelbo
+Maintainer: mbo42
+Author: mbo42
 Section: System
 Tag: role::hacker

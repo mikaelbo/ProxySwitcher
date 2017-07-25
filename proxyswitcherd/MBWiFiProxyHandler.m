@@ -44,7 +44,7 @@
 }
 
 - (void)refreshPreferences { 
-    _preferences = [NSDictionary dictionaryWithContentsOfFile:@"/User/Library/Preferences/com.mikaelbo.proxyswitcher.plist"];
+    _preferences = [NSDictionary dictionaryWithContentsOfFile:@"/User/Library/Preferences/com.mbo42.proxyswitcher.plist"];
 }
 
 - (void)enableProxy {

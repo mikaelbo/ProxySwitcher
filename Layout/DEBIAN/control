@@ -1,10 +1,10 @@
-Package: com.mikaelbo.proxyswitcher
+Package: com.mbo42.proxyswitcher
 Name: ProxySwitcher
 Depends: mobilesubstrate, PreferenceLoader,firmware(>= 8), firmware (<< 9.1) | org.thebigboss.libstatus9, firmware (>= 9.0) | libstatusbar
 Version: 1.0
 Architecture: iphoneos-arm
 Description: Easily toggle between using a proxy on WiFi.
-Maintainer: Mikaelbo
-Author: Mikaelbo
+Maintainer: mbo42
+Author: mbo42
 Section: Tweaks
 Icon: file:///Library/Application Support/ProxySwitcher/ProxySwitcherBundle.bundle/icon.png

@@ -5,12 +5,10 @@
 	<key>KeepAlive</key>
 	<true/>
 	<key>Label</key>
-	<string>com.mikaelbo.proxyswitcherd</string>
+	<string>com.mbo42.proxyswitcherd</string>
 	<key>Program</key>
 	<string>/usr/bin/ProxySwitcherd</string>
 	<key>RunAtLoad</key>
 	<true/>
-	<key>ProgramArguments</key>
-	<array/>
 </dict>
 </plist>

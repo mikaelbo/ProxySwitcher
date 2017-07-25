@@ -1,4 +1,4 @@
 #!/bin/sh
-echo "Pre remove: Unloading daemon..."
-launchctl unload /Library/LaunchDaemons/com.mikaelbo.proxyswitcherd.plist
+echo "Unloading ProxySwitcher daemon..."
+launchctl unload /Library/LaunchDaemons/com.mbo42.proxyswitcherd.plist
 exit 0

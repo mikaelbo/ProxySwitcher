@@ -26,7 +26,7 @@
 %new
 - (void)MB_didTapOnView:(UITapGestureRecognizer *)recognizer {
     CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), 
-                                         CFSTR("com.mikaelbo.proxyswitcheruikit/didTapOnStatusBar"),  
+                                         CFSTR("com.mbo42.proxyswitcheruikit/didTapOnStatusBar"),  
                                         NULL, 
                                         NULL, 
                                         YES);
