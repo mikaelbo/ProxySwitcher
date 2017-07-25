@@ -25,6 +25,7 @@ static BOOL canShowStatusBarIcon() {
 
 static void updateStatusBarImage() {
     statusBarItem.imageName = type > 0 ? @"ProxySwitcher" : @"ProxySwitcherUnselected";
+    NSLog(@"IMAGE NAME: %@", statusBarItem.imageName);
 }
 
 static void setStatusBarVisible(BOOL visible) {
@@ -53,15 +54,15 @@ static void loadPreferences() {
                                                                    kCFPreferencesAnyHost);
         if (!preferences) { preferences = [NSDictionary dictionary]; }
         CFRelease(keyList);
-        enabled = [preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : NO;
-        alwaysShow = [preferences objectForKey:@"alwaysShow"] ? [[preferences objectForKey:@"alwaysShow"] boolValue] : YES;
-        proxyInfo = [MBWiFiProxyInfo infoFromDictionary:preferences];
-        type = [preferences objectForKey:@"type"] ? [[preferences objectForKey:@"type"] integerValue] : 0;
-        notify_post("com.mbo42.proxyswitcherd.refreshPreferences");
-        setStatusBarVisible(![[[%c(RadiosPreferences) alloc] init] airplaneMode]);
-        updateStatusBarImage();
-        networkChanged();
     }
+    enabled = [preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : YES;
+    alwaysShow = [preferences objectForKey:@"alwaysShow"] ? [[preferences objectForKey:@"alwaysShow"] boolValue] : YES;
+    proxyInfo = [MBWiFiProxyInfo infoFromDictionary:preferences];
+    type = [preferences objectForKey:@"type"] ? [[preferences objectForKey:@"type"] integerValue] : 0;
+    notify_post("com.mbo42.proxyswitcherd.refreshPreferences");
+    setStatusBarVisible(![[[%c(RadiosPreferences) alloc] init] airplaneMode]);
+    updateStatusBarImage();
+    networkChanged();
 }
 
 static void saveNewType() {
