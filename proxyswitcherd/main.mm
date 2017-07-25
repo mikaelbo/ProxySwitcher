@@ -5,7 +5,7 @@ static void enable(CFNotificationCenterRef center,
                    CFStringRef name,
                    const void *object,
                    CFDictionaryRef userInfo) {
-    NSLog(@"ProxySwitcherd: Enable proxy");
+    HBLogDebug(@"ProxySwitcherd: Enable proxy");
     [[MBWiFiProxyHandler sharedInstance] enableProxy];
 }
 
@@ -14,7 +14,7 @@ static void disable(CFNotificationCenterRef center,
                     CFStringRef name,
                     const void *object,
                     CFDictionaryRef userInfo) {
-    NSLog(@"ProxySwitcherd: Disable proxy");
+    HBLogDebug(@"ProxySwitcherd: Disable proxy");
     [[MBWiFiProxyHandler sharedInstance] disableProxy];
 }
 
@@ -23,12 +23,12 @@ static void refreshPreferences(CFNotificationCenterRef center,
                     CFStringRef name,
                     const void *object,
                     CFDictionaryRef userInfo) {
-    NSLog(@"ProxySwitcherd: Refresh preferences");
+    HBLogDebug(@"ProxySwitcherd: Refresh preferences");
     [[MBWiFiProxyHandler sharedInstance] refreshPreferences];
 }
 
 int main(int argc, char **argv, char **envp) {
-    NSLog(@"ProxySwitcherd: ProxySwitcherd is launched!");
+    HBLogDebug(@"ProxySwitcherd: ProxySwitcherd is launched!");
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
                                     NULL,
                                     enable,

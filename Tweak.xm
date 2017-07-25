@@ -25,7 +25,6 @@ static BOOL canShowStatusBarIcon() {
 
 static void updateStatusBarImage() {
     statusBarItem.imageName = type > 0 ? @"ProxySwitcher" : @"ProxySwitcherUnselected";
-    NSLog(@"IMAGE NAME: %@", statusBarItem.imageName);
 }
 
 static void setStatusBarVisible(BOOL visible) {

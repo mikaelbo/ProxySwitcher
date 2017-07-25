@@ -93,7 +93,7 @@
                 NSNumber *port = [self.preferences numberForKeySafely:@"port"];
                 if (server && port) {
                     BOOL shouldChange = [self shouldChangeProxyDict:proxies withServer:server port:port];
-                    NSLog(@"Should change proxy: %d", shouldChange);
+                    HBLogDebug(@"Should change proxy: %d", shouldChange);
                    if (shouldChange) {
                         [proxies setObject:@(1) forKey:cfs2nss(kSCPropNetProxiesHTTPEnable)];
                         [proxies setObject:server forKey:cfs2nss(kSCPropNetProxiesHTTPProxy)];
@@ -107,13 +107,13 @@
                 }
             } else {
                 if (proxies.count) {
-                    NSLog(@"Remove proxy settings");
+                    HBLogDebug(@"Remove proxy settings");
                     [proxies removeAllObjects];
                     didChange = YES;
                 }
             }
             if (didChange) {
-                NSLog(@"DID CHANGE");
+                HBLogDebug(@"Proxy setting did change");
                 SCPreferencesSetValue(prefRef, kSCPrefNetworkServices, (__bridge CFPropertyListRef)nservices);
                 SCPreferencesCommitChanges(prefRef);
                 SCPreferencesApplyChanges(prefRef);
