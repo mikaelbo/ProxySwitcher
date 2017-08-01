@@ -13,7 +13,7 @@ Available from iOS 8+
 	<img src="https://user-images.githubusercontent.com/5389084/28245622-b3eff418-6a3d-11e7-98cf-ded2eb1f421e.png" width="216" height="384"/>
 </p>
 
-## Nice to have:
+## Future wishlist:
 - Saving proxy username and password credentials to the KeyChain (`SecKeychainAddInternetPassword`?)
 - Multiple proxy configurations
 - Overlay for toggling proxy. Something like this:
@@ -68,3 +68,7 @@ When everything is set up and working properly, you can run `make package instal
 * [Danny Liu](https://github.com/DYun) for his project [iOSProxyManager](https://github.com/DYun/iOSProxyManager)
 * [Uroboro](https://github.com/uroboro) for his help on the #iphonedev IRC and his [iOS Daemon example project](https://github.com/uroboro/iOS-daemon/tree/Objective-C)
 * [iOSre](http://bbs.iosre.com/)'s guide on [running a daemon as root](http://bbs.iosre.com/)
+
+## Licence
+
+This project is licensed under the [MIT Licence](https://github.com/mikaelbo/ProxySwitcher/blob/master/LICENSE). Feel free to use the code however you see fit in your own projects. However, redistribution of this tweak **as is** to Cydia is prohibited.
