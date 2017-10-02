@@ -5,7 +5,7 @@ Easily toggle between using proxy and non-proxy by tapping the added icon on the
 
 The icon can be toggled to only show when WiFi is active (default), or to always be shown.
 
-Available from iOS 8+
+Available from iOS 9.1+
 
 <p align="center">
 	<img src="https://user-images.githubusercontent.com/5389084/28245623-b426cbdc-6a3d-11e7-9340-7bbfac0fbb30.png" width="216" height="384"/>

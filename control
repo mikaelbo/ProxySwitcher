@@ -1,7 +1,7 @@
 Package: com.mbo42.proxyswitcher
 Name: ProxySwitcher
-Depends: mobilesubstrate, PreferenceLoader,firmware(>= 8), firmware (<< 9.1) | org.thebigboss.libstatus9, firmware (>= 9.0) | libstatusbar
-Version: 1.0
+Depends: mobilesubstrate, PreferenceLoader, org.thebigboss.libstatus9, firmware(>=9.1)
+Version: 1.0.2
 Architecture: iphoneos-arm
 Description: Easily toggle between using a proxy on WiFi.
 Maintainer: mbo42
