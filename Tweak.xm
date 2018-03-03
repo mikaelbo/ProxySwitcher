@@ -108,7 +108,8 @@ static void toggleProxy() {
         UIAlertController *alertVC = (UIAlertController *)controller;
         NSString *message = alertVC.message;
         if (!proxyInfo.server.length || !proxyInfo.port || !proxyInfo.username.length || !proxyInfo.password.length) { return; }
-        if ([message rangeOfString:proxyInfo.server].location != NSNotFound && 
+        if (message && 
+            [message rangeOfString:proxyInfo.server].location != NSNotFound && 
             [message rangeOfString:[proxyInfo.port stringValue]].location != NSNotFound) {
             if (alertVC.textFields.count > 1) {
                 UITextField *usernameField = alertVC.textFields[0];
