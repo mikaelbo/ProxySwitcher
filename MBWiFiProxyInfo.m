@@ -2,8 +2,8 @@
 
 @interface NSDictionary<KeyType, ObjectType> (Getters)
 
-- (nullable NSString*)stringForKeySafely:(nullable KeyType)key;
-- (nullable NSNumber*)numberForKeySafely:(nullable KeyType)key;
+- (nullable NSString *)stringForKeySafely:(nullable KeyType)key;
+- (nullable NSNumber *)numberForKeySafely:(nullable KeyType)key;
 
 @end
 
@@ -23,7 +23,7 @@
     return nil;
 }
 
-- (NSNumber*)numberFromString:(NSString*)string {
+- (NSNumber *)numberFromString:(NSString *)string {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     return [formatter numberFromString:string];

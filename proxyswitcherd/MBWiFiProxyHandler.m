@@ -3,8 +3,8 @@
 
 @interface NSDictionary<KeyType, ObjectType> (Getters)
 
-- (nullable NSString*)stringForKeySafely:(nullable KeyType)key;
-- (nullable NSNumber*)numberForKeySafely:(nullable KeyType)key;
+- (nullable NSString *)stringForKeySafely:(nullable KeyType)key;
+- (nullable NSNumber *)numberForKeySafely:(nullable KeyType)key;
 
 @end
 

@@ -51,7 +51,9 @@ static void loadPreferences() {
                                                                    CFSTR("com.mbo42.proxyswitcher"), 
                                                                    kCFPreferencesCurrentUser, 
                                                                    kCFPreferencesAnyHost);
-        if (!preferences) { preferences = [NSDictionary dictionary]; }
+        if (!preferences) { 
+            preferences = [NSDictionary dictionary]; 
+        }
         CFRelease(keyList);
     }
     enabled = [preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : YES;
@@ -107,7 +109,9 @@ static void toggleProxy() {
     if ([controller isKindOfClass:[UIAlertController class]]) {
         UIAlertController *alertVC = (UIAlertController *)controller;
         NSString *message = alertVC.message;
-        if (!proxyInfo.server.length || !proxyInfo.port || !proxyInfo.username.length || !proxyInfo.password.length) { return; }
+        if (!proxyInfo.server.length || !proxyInfo.port || !proxyInfo.username.length || !proxyInfo.password.length) { 
+            return; 
+        }
         if (message && 
             [message rangeOfString:proxyInfo.server].location != NSNotFound && 
             [message rangeOfString:[proxyInfo.port stringValue]].location != NSNotFound) {
